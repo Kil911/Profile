@@ -8,4 +8,4 @@ Write-Output ($PSStyle.Background.Magenta + $PSStyle.Foreground.White + "DEV: Bu
 Invoke-Build
 
 Write-Output ($PSStyle.Background.Magenta + $PSStyle.Foreground.White + "DEV: Loading Module..." + $PSStyle.Reset)
-Import-Module $PWD/artifacts/MartinsProfile
+Import-Module $PWD/artifacts/Profile

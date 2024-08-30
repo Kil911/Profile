@@ -14,5 +14,5 @@ function ImportHumanizer {
     $path = "$PSScriptRoot/Dlls/Humanizer.dll"
     WriteDebug "Importing Humanizer: $path"
 
-    Add-Type -Path $path -Verbose:([boolean]$env:MartinsProfileDebugMode) -Debug:([boolean]$env:MartinsProfileDebugMode)
+    Add-Type -Path $path -Verbose:([boolean]$env:ProfileDebugMode) -Debug:([boolean]$env:ProfileDebugMode)
 }

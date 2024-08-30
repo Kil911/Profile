@@ -13,12 +13,13 @@ if (('Desktop' -eq $PSVersionTable.PSEdition) -or ($PSVersionTable.PSVersion.Maj
             [System.Windows.Input.Keyboard]::IsKeyDown([System.Windows.Input.Key]::RightShift)) {
             $ProfileDebugMode = 'true'
         }
-    } catch {
+    }
+    catch {
         # If that didn't work ... oh well.
     }
 }
 
-if ($env:MartinsProfileDebugMode) {
+if ($env:ProfileDebugMode) {
     $ProfileDebugMode = 'true'
 }
 
@@ -63,4 +64,4 @@ $types = Get-ChildItem -Path $PSScriptRoot/Types -Filter '*.ps1xml'
 Update-TypeData -PrependPath $types
 
 
-Write-Information "⏲️  $($PSStyle.Foreground.BrightYellow)MartinsProfile$($PSStyle.Foreground.BrightBlue) processed in $($PSStyle.Foreground.BrightYellow)$($moduleSw.ElapsedMilliseconds)$($PSStyle.Foreground.BrightBlue) ms.$($PSStyle.Reset)" -InformationAction 'Continue'
+Write-Information "⏲️  $($PSStyle.Foreground.BrightYellow)Profile$($PSStyle.Foreground.BrightBlue) processed in $($PSStyle.Foreground.BrightYellow)$($moduleSw.ElapsedMilliseconds)$($PSStyle.Foreground.BrightBlue) ms.$($PSStyle.Reset)" -InformationAction 'Continue'

@@ -5,8 +5,8 @@ param()
 
 # Properties
 $CompanyName = (property CompanyName 'Lupus Familiaris Software')
-$Copyright =  (property Copyright '(c) 2024, Martin Gill. All Rights Reserved.')
-$ModuleName = (property ModuleName 'MartinsProfile')
+$Copyright = (property Copyright '(c) 2024, Martin Gill. All Rights Reserved.')
+$ModuleName = (property ModuleName 'Profile')
 $ModuleVersion = (property ModuleVersion '1.3.0')
 
 # Paths
@@ -24,7 +24,7 @@ task Build GenerateModule, CopyAdditionalFiles, GenerateManifest, {
 }
 
 task Clean {
-    remove $ModuleOutputFolder
+    remove $ModuleOutputFolderFN
 }
 
 task EnsureFolders {
@@ -97,69 +97,69 @@ task CopyAdditionalFiles {
 
 task GenerateManifest EnsureFolders, {
     $manifest = @{
-        Path = "$ModuleOutputFolder/$ModuleName.psd1"
-        NestedModules = @()
-        Guid = '585b8e60-7427-478c-ad52-43302e91c970'
-        CompanyName = $CompanyName
-        Copyright = $Copyright
-        RootModule = "$ModuleName.psm1"
-        ModuleVersion = $ModuleVersion
-        Description =  "Martin's Personal Profile"
+        Path                     = "$ModuleOutputFolder/$ModuleName.psd1"
+        NestedModules            = @()
+        Guid                     = '585b8e60-7427-478c-ad52-43302e91c970'
+        CompanyName              = $CompanyName
+        Copyright                = $Copyright
+        RootModule               = "$ModuleName.psm1"
+        ModuleVersion            = $ModuleVersion
+        Description              = "Personal Profile"
         # ProcessorArchitecture = 'MSIL'
-        PowerShellVersion =  '7.0'
+        PowerShellVersion        = '7.0'
         # ClrVersion =  ''
         # DotNetFrameworkVersion =  ''
         # PowerShellHostName = ''
         # PowerShellHostVersion = ''
-        RequiredModules =  @(
+        RequiredModules          = @(
             @{
-                ModuleName = 'PSReadline'
+                ModuleName    = 'PSReadline'
                 ModuleVersion = '2.3.4'
             }
             @{
-                ModuleName = 'Terminal-Icons'
+                ModuleName    = 'Terminal-Icons'
                 ModuleVersion = '0.11.0'
             }
             @{
-                ModuleName = 'posh-git'
+                ModuleName    = 'posh-git'
                 ModuleVersion = '1.1.0'
             }
         )
-        TypesToProcess = Get-ChildItem -Path "$srcFolder/Types/*.ps1xml" | ForEach-Object { "Types/$($_.Name)" }
-        FormatsToProcess = Get-ChildItem -Path "$srcFolder/Formats/*.ps1xml" | ForEach-Object { "Formats/$($_.Name)" }
-        ScriptsToProcess = ''
-        RequiredAssemblies = @('Dlls/Humanizer.dll')
-        FileList = @()
-        ModuleList = @()
-        FunctionsToExport = @($PublicScripts | ForEach-Object { $_.BaseName })
-        AliasesToExport = @()
-        VariablesToExport = @()
-        CmdletsToExport = @()
-        DscResourcesToExport = @()
-        CompatiblePSEditions = 'Core'
-        PrivateData = @{}
+        TypesToProcess           = Get-ChildItem -Path "$srcFolder/Types/*.ps1xml" | ForEach-Object { "Types/$($_.Name)" }
+        FormatsToProcess         = Get-ChildItem -Path "$srcFolder/Formats/*.ps1xml" | ForEach-Object { "Formats/$($_.Name)" }
+        ScriptsToProcess         = ''
+        RequiredAssemblies       = @('Dlls/Humanizer.dll')
+        FileList                 = @()
+        ModuleList               = @()
+        FunctionsToExport        = @($PublicScripts | ForEach-Object { $_.BaseName })
+        AliasesToExport          = @()
+        VariablesToExport        = @()
+        CmdletsToExport          = @()
+        DscResourcesToExport     = @()
+        CompatiblePSEditions     = 'Core'
+        PrivateData              = @{}
         # Tags = @()
         # ProjectUri = ''
         # LicenseUri = ''
         # IconUri = ''
-        ReleaseNotes = 'TODO: Release Notes'
+        ReleaseNotes             = 'TODO: Release Notes'
         # Prerelease = ''
         RequireLicenseAcceptance = $false
         # HelpInfoUri = ''
-        PassThru = $false
-        DefaultCommandPrefix = "Pro"
-        WhatIf = $false
+        PassThru                 = $false
+        DefaultCommandPrefix     = "Pro"
+        WhatIf                   = $false
     }
     New-ModuleManifest @manifest
 }
 
-task CreateDevRepository -If { @(Get-PSResourceRepository | Where-Object Name -eq 'MartinsProfileDev').Count -eq 0 } {
+task CreateDevRepository -If { @(Get-PSResourceRepository | Where-Object Name -eq 'ProfileDev').Count -eq 0 } {
     $null = New-Item $DevRepoPath -Force -ItemType Directory
-    Register-PSResourceRepository -Name MartinsProfileDev -Uri $DevRepoPath -Trusted
+    Register-PSResourceRepository -Name ProfileDev -Uri $DevRepoPath -Trusted
 }
 
 task PublishLocal Build, CreateDevRepository, {
-    Publish-PSResource -Path $ModuleOutputFolder -Repository MartinsProfileDev -SkipDependenciesCheck
+    Publish-PSResource -Path $ModuleOutputFolder -Repository ProfileDev -SkipDependenciesCheck
 }
 
 task DevInstall RemoveLocal, Build, ImportLocal, {
@@ -167,11 +167,11 @@ task DevInstall RemoveLocal, Build, ImportLocal, {
 }
 
 task RemoveLocal {
-    $null = Remove-Module MartinsProfile -ErrorAction SilentlyContinue
+    $null = Remove-Module Profile -ErrorAction SilentlyContinue
 }
 
 task ImportLocal {
-    Import-Module $ModuleOutputFolder/MartinsProfile
+    Import-Module $ModuleOutputFolder/Profile
 }
 
-task Rebuild Clean,Build
+task Rebuild Clean, Build

@@ -8,8 +8,10 @@
       "name": "PowerShell: Module Interactive Session",
       "type": "PowerShell",
       "request": "launch",
-      "args": ["-NoProfile"],
-      "script": "; cd ${workspaceFolder}; $DebugPreference = 'Continue'; $VerbosePreference = 'Continue; ./build.ps1 -Verbose; Import-Module ./artifacts/MartinsProfile"
+      "args": [
+        "-NoProfile"
+      ],
+      "script": "; cd ${workspaceFolder}; $DebugPreference = 'Continue'; $VerbosePreference = 'Continue; ./build.ps1 -Verbose; Import-Module ./artifacts/Profile"
     },
     {
       "name": "PowerShell: Launch Current File",

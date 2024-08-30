@@ -1,4 +1,4 @@
-# Martin's Profile
+# Profile
 
 ## Introduction
 
@@ -21,7 +21,7 @@ your own profile.
 
 ### Version 1.0
 
-* Renamed to `MartinsProfile`
+* Renamed to `Profile`
 * Default Prefix changed to `Pro` for profile
 * Complete re-structure of module
 * Improvements to load performance
@@ -44,13 +44,13 @@ Install-PSResource -Name PSReadline -Version 2.2.0
 ### Install the Module
 
 ```powershell
-Install-PSResource MartinsProfile
+Install-PSResource Profile
 ```
 
 ### Import the Module
 
 ```powershell
-Import-Module MartinsProfile
+Import-Module Profile
 ```
 
 ### Update your Profile
